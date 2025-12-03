@@ -64,7 +64,14 @@ def marcar_quarto_limpo(num_quarto):
         status[indice] = "livre"
         print('O quarto está disponível novamente')
         return True
-    
+
+def visualizar_ocupacao():
+    for i in range(50):
+        if status[i] == "ocupado":
+            print(f'Quarto: {numeros[i]} - Hóspede: {hospedes[i]} ({dias[i]} dias restantes)')
+        else:
+            print(f'Quarto: {numeros[i]} [{status[i]}]')
+
 escolha = 999
 numeros, status, hospedes, dias = inicializar_hotel()
 print('Bem vindo(a) ao HotelPy!')
@@ -131,3 +138,7 @@ while escolha != 0:
         num_quarto = int(input('\nQual quarto deseja marcar a limpeza como concluída? '))
 
         limpeza = marcar_quarto_limpo(num_quarto)
+
+    if escolha == 5:
+        
+        consulta = visualizar_ocupacao()
