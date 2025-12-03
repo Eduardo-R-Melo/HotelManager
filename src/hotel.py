@@ -1,38 +1,124 @@
 
+
 def inicializar_hotel():
-    numeros_quartos = [
-        101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
-        111, 112, 113, 114, 115, 116, 117, 118, 119, 120,
-        121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
-        131, 132, 133, 134, 135, 136, 137, 138, 139, 140,
-        141, 142, 143, 144, 145, 146, 147, 148, 149, 150
-    ]
+    numero_quartos = list(range(101, 151))
 
-    status_quartos = [
-        "livre", "livre", "limpeza", "manutencao", "manutencao", "limpeza", "limpeza", "ocupado", "limpeza", "ocupado",
-        "livre", "limpeza", "limpeza", "limpeza", "manutencao", "livre", "livre", "manutencao", "manutencao", "ocupado",
-        "manutencao", "ocupado", "manutencao", "limpeza", "ocupado", "ocupado", "manutencao", "livre", "manutencao", "livre",
-        "limpeza", "limpeza", "limpeza", "limpeza", "manutencao", "limpeza", "manutencao", "ocupado", "manutencao", "ocupado",
-        "ocupado", "manutencao", "ocupado", "limpeza", "ocupado", "limpeza", "manutencao", "manutencao", "ocupado", "ocupado"
-    ]
+    status_quarto = ["livre"] * 50
 
-    hospedes_quartos = [
-        "", "", "", "", "", "", "", "Maria Eduarda", "", "João Miguel",
-        "", "", "", "", "", "", "", "", "", "Ana Clara",
-        "", "Pedro Henrique", "", "", "Laura Sofia", "Luiz Otávio", "", "", "", "",
-        "", "", "", "", "", "", "", "Isabela Cristina", "", "Carlos Eduardo",
-        "Vitória Régia", "", "Hóspede 143", "", "Alice Beatriz", "", "", "", "Vitória Régia", "Jaime Ferreira"
-    ]
+    hospedes_quartos = [""] * 50
 
-    dias_estadia = [
-        0, 0, 0, 0, 0, 0, 0, 6, 0, 5,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 18,
-        0, 3, 0, 0, 9, 4, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 7, 0, 20,
-        2, 0, 1, 0, 3, 0, 0, 0, 9, 15
-    ]
+    dias_estadia = [0] * 50
 
-    return numeros_quartos, status_quartos, hospedes_quartos, dias_estadia
+    return numero_quartos, status_quarto, hospedes_quartos, dias_estadia
+
+
+
+def encontrar_indice_quarto(num_quarto, numeros_quartos):
+
+    for i in range(len(numeros_quartos)):
+        if numeros_quartos[i] == num_quarto:
+            return i
+
+    return -1
+
+
+
+def fazer_check_in(num_quarto, nome_hospede, num_dias, numeros_quartos, status_quartos, hospedes_quartos, dias_estadia):
+
+    i = encontrar_indice_quarto(num_quarto, numeros_quartos)
+
+    if i == -1:
+        return False
+
+    if status_quartos[i] != "livre":
+        return False
+
+    status_quartos[i] = "ocupado"
+    hospedes_quartos[i] = nome_hospede
+    dias_estadia[i] = num_dias
+
+    return True
+
+
+
+def fazer_check_out(num_quarto, numeros_quartos, status_quartos, hospedes_quartos, dias_estadia):
+
+    i = encontrar_indice_quarto(num_quarto, numeros_quartos)
+
+    if i == -1:
+        return None
+    
+    if status_quartos[i] != "ocupado":
+        return None
+
+    nome_hospede = hospedes_quartos[i]
+    status_quartos[i] = "limpeza"
+    hospedes_quartos[i] = ""
+    dias_estadia = 0
+
+    return nome_hospede
+
+
+
+escolha = 999
+numeros, status, hospedes, dias = inicializar_hotel()
+print('Bem vindo(a) ao Hotel!')
+
+
+
+while escolha != 0:
+
+    print('\nSelecione uma opção:')
+    print('0 - Sair')
+    print('1 - Visualizar disponibilidade de Quarto')
+    print('2 - Realizar check-in do Quarto')
+    print('3 - Realizar check-out do Quarto')
+    escolha = int(input('\nO que deseja visualizar? '))
+
+
+    if escolha == 1:
+        n = int(input('\nDigite o número do quarto que deseja visualizar: '))
+
+        indice = encontrar_indice_quarto(n, numeros)
+
+        if indice == -1:
+            print("Quarto não encontrado.")
+        else:
+            print("Quarto:", numeros[indice])
+            print("Status:", status[indice])
+            print("Hóspede:", hospedes[indice])
+            print("Dias de estadia:", dias[indice])
+
+
+
+    elif escolha == 2:
+        num_quarto = int(input("\nDigite o número do quarto para check-in: "))
+        nome_hospede = input("Nome do hóspede: ")
+        num_dias = int(input("Quantidade de dias de estadia: "))
+
+        resultado = fazer_check_in(
+            num_quarto,
+            nome_hospede,
+            num_dias,
+            numeros,
+            status,
+            hospedes,
+            dias
+        )
+
+        if resultado:
+            print(f"\nCheck-in feito com sucesso no quarto {num_quarto}!")
+        else:
+            print(f"\nNão foi possível realizar o check-in no quarto {num_quarto}.")
+    
+
+
+    elif escolha == 3:
+        num_quarto = int(input("\nDigite o número do quarto para check-out: "))
+
+
+
+
 
 
 
