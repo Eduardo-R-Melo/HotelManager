@@ -19,37 +19,41 @@ def encontrar_indice_quarto(num_quarto):
 
 def fazer_check_in(num_quarto, nome_hospede, num_dias):
 
-    i = encontrar_indice_quarto(num_quarto)
+    indice = encontrar_indice_quarto(num_quarto)
 
-    if i == -1:
+    if indice == -1:
         return False
     
-    if status[i] != "livre":
+    if status[indice] != "livre":
         return False
     
-    status[i] = "ocupado"
-    hospedes[i] = nome_hospede
-    dias[i] = num_dias
+    status[indice] = "ocupado"
+    hospedes[indice] = nome_hospede
+    dias[indice] = num_dias
 
     return True
 
 def fazer_check_out(num_quarto):
     
     indice = encontrar_indice_quarto(num_quarto)
-
-    if status[indice] != "ocupado":
-        print('O quarto não está ocupado!')
-
-        return None
     
-    else:
-        temp_nome = hospedes[indice]
-        hospedes[indice] = ""
-        status[indice] = "limpeza"
-        dias[indice] = 0
-        print(f'O cliente {temp_nome} saiu')
+    if indice == -1:
+        print('Quarto não existente!')
 
-        return temp_nome
+    else:
+        if status[indice] != "ocupado":
+            print('O quarto não está ocupado!')
+
+            return None
+        
+        else:
+            temp_nome = hospedes[indice]
+            hospedes[indice] = ""
+            status[indice] = "limpeza"
+            dias[indice] = 0
+            print(f'O cliente {temp_nome} saiu')
+
+            return temp_nome
 
 def marcar_quarto_limpo(num_quarto):
 
