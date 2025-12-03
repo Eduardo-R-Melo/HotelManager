@@ -1,5 +1,4 @@
 
-
 def inicializar_hotel():
     numero_quartos = list(range(101, 151))
 
@@ -116,9 +115,19 @@ while escolha != 0:
     elif escolha == 3:
         num_quarto = int(input("\nDigite o número do quarto para check-out: "))
 
+        nome = fazer_check_out(
+            num_quarto,
+            numeros,
+            status,
+            hospedes,
+            num_dias
+        )
 
+        if nome is None:
+            print(f"\nNão foi possível fazer check-out do quarto {num_quarto}.")
 
-
-
-
+        else:
+            print(f"\nCheck-out realizado com sucesso!")
+            print(f"Hóspede que saiu: {nome}")
+            print(f"Quarto {num_quarto} agora está com status: {status[ encontrar_indice_quarto(num_quarto, numeros) ]}")
 
