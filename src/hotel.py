@@ -50,13 +50,24 @@ def fazer_check_out(num_quarto):
         print(f'O cliente {temp_nome} saiu')
 
         return temp_nome
+
+def marcar_quarto_limpo(num_quarto):
+
+    indice = encontrar_indice_quarto(num_quarto)
+
+    if status[indice] != "limpeza" and status[indice] != "manuntencao":
+        print('Quarto não esta em (Limpeza/Manuntenção)')
+
+        return False
+
+    else:
+        status[indice] = "livre"
+        print('O quarto está disponível novamente')
+        return True
     
 escolha = 999
 numeros, status, hospedes, dias = inicializar_hotel()
 print('Bem vindo(a) ao HotelPy!')
-
-def mostrar_listas():
-    print(numeros, status, hospedes, dias)
 
 while escolha != 0:
     
@@ -65,6 +76,7 @@ while escolha != 0:
     print('1 - Visualizar disponibilidade do quarto')
     print('2 - Realizar check-in')
     print('3 - Realizar check-out')
+    print('4 - Concluir limpeza')
 
     escolha = int(input('\nO que deseja visualizar? '))
 
@@ -114,3 +126,8 @@ while escolha != 0:
         num_quarto = int(input('\nDigite o número do quarto que deseja realizar o check-out: '))
 
         checkOut = fazer_check_out(num_quarto)
+
+    if escolha == 4:
+        num_quarto = int(input('\nQual quarto deseja marcar a limpeza como concluída? '))
+
+        limpeza = marcar_quarto_limpo(num_quarto)
