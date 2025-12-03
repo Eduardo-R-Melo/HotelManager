@@ -72,6 +72,16 @@ def visualizar_ocupacao():
         else:
             print(f'Quarto: {numeros[i]} [{status[i]}]')
 
+def encontra_quartos_por_status(status_busca):
+
+    quartos_encontrados = []
+
+    for i in range(len(status)):
+        if status[i] == status_busca:
+            quartos_encontrados.append(numeros[i])
+    
+    print(quartos_encontrados)
+
 escolha = 999
 numeros, status, hospedes, dias = inicializar_hotel()
 print('Bem vindo(a) ao HotelPy!')
@@ -84,6 +94,8 @@ while escolha != 0:
     print('2 - Realizar check-in')
     print('3 - Realizar check-out')
     print('4 - Concluir limpeza')
+    print('5 - Visualizar informações dos quartos')
+    print('6 - Busca por status')
 
     escolha = int(input('\nO que deseja visualizar? '))
 
@@ -140,5 +152,9 @@ while escolha != 0:
         limpeza = marcar_quarto_limpo(num_quarto)
 
     if escolha == 5:
-        
         consulta = visualizar_ocupacao()
+
+    if escolha == 6:
+        status_busca = input('Digite qual status deseja buscar:\nlivre\nocupado\nlimpeza\nmanuntencao\n\n')
+        
+        busca = encontra_quartos_por_status(status_busca)
