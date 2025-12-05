@@ -17,21 +17,29 @@ def encontrar_indice_quarto(num_quarto):
 
     return -1
 
-def fazer_check_in(num_quarto, nome_hospede, num_dias):
+def fazer_check_in(num_quarto):
 
     indice = encontrar_indice_quarto(num_quarto)
 
     if indice == -1:
+        print(f'O quarto nº {num_quarto} não existe.')
         return False
     
-    if status[indice] != "livre":
+    elif status[indice] != "livre":
+        print(f'Não é possível realizar o check-in.\nStatus: {status[indice]}')
         return False
     
-    status[indice] = "ocupado"
-    hospedes[indice] = nome_hospede
-    dias[indice] = num_dias
+    else:
+        nome_hospede = input('Digite o nome do hospede: ')
+        num_dias = int(input('Digite quantos dias o cliente ficará hospedado: '))
+        
+        status[indice] = "ocupado"
+        hospedes[indice] = nome_hospede
+        dias[indice] = num_dias
 
-    return True
+        print(f'Check-in feito com sucesso no quarto {num_quarto}')
+
+        return True
 
 def fazer_check_out(num_quarto):
     
@@ -51,7 +59,7 @@ def fazer_check_out(num_quarto):
             hospedes[indice] = ""
             status[indice] = "limpeza"
             dias[indice] = 0
-            print(f'O cliente {temp_nome} saiu')
+            print(f'Cliente {temp_nome} saiu')
 
             return temp_nome
 
@@ -84,7 +92,7 @@ def encontra_quartos_por_status(status_busca):
         if status[i] == status_busca:
             quartos_encontrados.append(numeros[i])
     
-    print(quartos_encontrados)
+    print(f'Quartos encontrados: {quartos_encontrados}')
 
 escolha = 999
 numeros, status, hospedes, dias = inicializar_hotel()
@@ -123,26 +131,7 @@ while escolha != 0:
     if escolha == 2:
         num_quarto = int(input('\nDigite o número do quarto que deseja realizar o check-in: '))
         
-        indice = encontrar_indice_quarto(num_quarto)
-
-        if status[indice] != "livre":
-            print(f'Não é possível realizar o check-in.\nStatus: {status[indice]}')
-
-        else:
-            nome_hospede = input('Digite o nome do hospede: ')
-            num_dias = int(input('Digite quantos dias o cliente ficará hospedado: '))
-
-            resultado = fazer_check_in(
-                num_quarto,
-                nome_hospede,
-                num_dias
-            )
-
-            if resultado:
-                print(f'Check-in feito com sucesso no quarto {num_quarto}')
-            
-            else:
-                print(f'Não foi possível realizar o check-in no quarto {num_quarto}')
+        fazer_check_in(num_quarto)
 
     if escolha == 3:
         
