@@ -7,7 +7,7 @@ def inicializar_hotel():
 
     dias_estadia = [0] * 50
 
-    return numeros_quartos, status_quartos, hospedes_quartos, dias_estadia
+    return (numeros_quartos, status_quartos, hospedes_quartos, dias_estadia)
 
 def encontrar_indice_quarto(num_quarto):
     
@@ -101,6 +101,9 @@ def realocar_hospede(quarto_origem, quarto_destino):
     if indice_origem == -1 or indice_destino == -1:
         print('\nNão foi possível realocar os hospedes, verifique os quartos novamente!')
     
+    elif numeros[indice_origem] == numeros[indice_destino]:
+        print('\nOperação inválida')
+
     elif status[indice_origem] != "ocupado":
         print('\nAVISO: ORIGEM')
         print(f'Quarto de origem: {quarto_origem}, não está ocupado!')
@@ -108,9 +111,6 @@ def realocar_hospede(quarto_origem, quarto_destino):
     elif status[indice_destino] != "livre":
         print('\nAVISO: DESTINO')
         print(f'Quarto de destino: {quarto_destino}, está ocupado!')
-
-    elif numeros[indice_origem] == numeros[indice_destino]:
-        print('\nOperação inválida')
 
     else:
         hospedes[indice_destino] = hospedes[indice_origem]
