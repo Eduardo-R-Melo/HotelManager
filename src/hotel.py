@@ -176,7 +176,7 @@ while escolha != 0:
         consulta = visualizar_ocupacao()
 
     if escolha == 6:
-        status_busca = input('Digite qual status deseja buscar:\nlivre\nocupado\nlimpeza\nmanuntencao\n\n')
+        status_busca = input('Digite qual status deseja buscar:\nlivre\nocupado\nlimpeza\nmanutencao\n\n')
         
         busca = encontra_quartos_por_status(status_busca)
 
